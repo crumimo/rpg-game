@@ -1,0 +1,27 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CameraControl : MonoBehaviour
+{
+    [SerializeField] private Transform target;
+    [SerializeField] private float smoothTime;
+    private Vector3 offset;
+
+    private void Start()
+    {
+        offset = transform.position - target.position;
+    }
+
+    private void Update()
+    {
+        if (target.position == null)
+        {
+            return;
+        }
+        
+        Vector3 cameraTarget = offset + target.position;
+        transform.position = Vector3.Lerp(transform.position, cameraTarget, smoothTime * Time.deltaTime);
+    }
+}
