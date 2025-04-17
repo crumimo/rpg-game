@@ -9,15 +9,18 @@ public class EnemyController : MonoBehaviour
     public Transform player;
     private NavMeshAgent navMeshAgent;
     
-    void Start()
+    
+    void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        navMeshAgent.SetDestination(player.position);
+        
+        
     }
 
     private void OnTriggerEnter(Collider other)
