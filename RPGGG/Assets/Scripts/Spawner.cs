@@ -5,8 +5,8 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
    [SerializeField] private GameObject toSpawn;
-   [SerializeField] private float spawnInterval = 2f;
-   [SerializeField] private int spawnCount = 3;
+   [SerializeField] protected float spawnInterval = 2f;
+   [SerializeField] protected int spawnCount = 3;
    [SerializeField] private Transform target;
 
 
