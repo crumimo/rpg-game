@@ -6,18 +6,32 @@ public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private int startingHealth;
     [SerializeField] private float hitInterval = 5f;
-
+    [SerializeField] private int healthGainedPerLevel = 10;
+    
     private float lastHitTime = 0;
     private int currentHealth;
     private Animator animator;
+    private int currentMaxHealth;
     
     public static bool isAlive = true;
 
     void Awake()
     {
         currentHealth = startingHealth;
+        currentMaxHealth = startingHealth;
         animator = GetComponent<Animator>();
         isAlive = true;
+    }
+
+    public void OnLevelGained(int newLevel)
+    {
+        currentMaxHealth = startingHealth + (newLevel-1) * healthGainedPerLevel;
+        currentHealth = currentMaxHealth;
+    }
+
+    public float GetHealthRatio()
+    {
+        return (float)currentHealth / (float) currentMaxHealth;
     }
 
     private void OnTriggerEnter(Collider other)

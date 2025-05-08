@@ -7,6 +7,7 @@ public class EnemyHealth : MonoBehaviour
 {
     [SerializeField] private int startingHealth;
     [SerializeField] private float hitInterval = 1f;
+    [SerializeField] private int xpToGive = 50;
 
     public UnityEvent OnDead;
     
@@ -44,6 +45,7 @@ public class EnemyHealth : MonoBehaviour
         }
         else
         {
+            LevelManager.instance.GiveXP(xpToGive);
             animator.SetTrigger("Dead");
             OnDead.Invoke();
             isDead = true;

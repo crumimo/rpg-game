@@ -6,10 +6,12 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-   [SerializeField] private Transform target;
+   public Transform target;
    [SerializeField] private Collider swordCollider;
    [SerializeField] private float attackInterval = 5f;
-
+   
+   private float lastAttackTime = 0;
+   
    private float attackTime = 0;
    private NavMeshAgent meshAgent;
    private Animator animator;
@@ -44,19 +46,20 @@ public class Enemy : MonoBehaviour
       if (isDead)
          return;
       meshAgent.SetDestination(target.position);
-      if (Vector3.Distance(transform.position, player.position) > 0.5f)
+      if (Vector3.Distance(transform.position, target.position) > 1.5f)
       {
          meshAgent.isStopped = false;
-         meshAgent.SetDestination(player.position);
+         meshAgent.SetDestination(target.position);
          animator.SetBool("isRunning", true);
       }
       else
       {
          meshAgent.isStopped = true;
          animator.SetBool("isRunning", false);
-         if (Time.time - attackTime > attackInterval)
+         if (Time.time - lastAttackTime > attackInterval)
          {
-            
+            lastAttackTime = Time.time;
+            animator.SetTrigger("Attack");
          }
       }
    }
