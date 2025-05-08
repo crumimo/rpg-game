@@ -174,8 +174,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toSpawn: {fileID: 8185977823606340824, guid: f553703fd481db94a9913e743a987000, type: 3}
-  spawnInterval: 2
-  spawnCount: 3
+  spawnInterval: 5
+  spawnCount: 1
   target: {fileID: 1232810199}
 --- !u!65 &168927869
 BoxCollider:
