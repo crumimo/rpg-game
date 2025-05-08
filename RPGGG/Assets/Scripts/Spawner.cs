@@ -10,7 +10,7 @@ public class Spawner : MonoBehaviour
    [SerializeField] private Transform target;
 
 
-   void Start()
+   public virtual void Start()
    {
       StartSpawn();
    }
