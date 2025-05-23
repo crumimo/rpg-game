@@ -7,6 +7,7 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Collider[] weapons;
+    [SerializeField] private AudioSource attackSound;
     private CharacterController charController;
     private Vector3 targetPosition;
     private Animator animator;
@@ -67,6 +68,7 @@ public class PlayerControl : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             animator.SetTrigger("stab");
+            attackSound.Play();
         }
     }
 }

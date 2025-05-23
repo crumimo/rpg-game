@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
    public Transform target;
    [SerializeField] private Collider swordCollider;
    [SerializeField] private float attackInterval = 5f;
+   [SerializeField] private AudioSource attackSound;
    
    private float lastAttackTime = 0;
    
@@ -60,6 +61,7 @@ public class Enemy : MonoBehaviour
          {
             lastAttackTime = Time.time;
             animator.SetTrigger("Attack");
+            attackSound.Play();
          }
       }
    }

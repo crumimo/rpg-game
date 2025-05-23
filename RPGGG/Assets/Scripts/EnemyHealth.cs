@@ -8,6 +8,8 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private int startingHealth;
     [SerializeField] private float hitInterval = 1f;
     [SerializeField] private int xpToGive = 50;
+    [SerializeField] private AudioSource hitSound;
+    [SerializeField] private AudioSource dieSound;
 
     public UnityEvent OnDead;
     
@@ -42,13 +44,37 @@ public class EnemyHealth : MonoBehaviour
         if(currentHealth > 0)
         {
             animator.SetTrigger("Hit");
+            hitSound.Play();
         }
         else
         {
             LevelManager.instance.GiveXP(xpToGive);
             animator.SetTrigger("Dead");
+            dieSound.Play();
             OnDead.Invoke();
+            if(currentHealth <= 0)
+            {
+                LevelManager.instance.GiveXP(xpToGive);
+                animator.SetTrigger("Dead");
+                dieSound.Play();
+                OnDead.Invoke();
+                isDead = true;
+
+                EnemyManager manager = FindObjectOfType<EnemyManager>();
+                if (manager != null)
+                {
+                    manager.EnemyKilled(); 
+                }
+                
+                StartCoroutine(DestroyEnemyAfterDelay(3f)); 
+            }
             isDead = true;
         }
     }
+    private IEnumerator DestroyEnemyAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Destroy(gameObject); 
+    }
+
 }

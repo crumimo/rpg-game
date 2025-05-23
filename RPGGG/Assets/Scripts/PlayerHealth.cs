@@ -7,6 +7,8 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private int startingHealth;
     [SerializeField] private float hitInterval = 5f;
     [SerializeField] private int healthGainedPerLevel = 10;
+    [SerializeField] private AudioSource hitSound;
+    [SerializeField] private AudioSource dieSound;
     
     private float lastHitTime = 0;
     private int currentHealth;
@@ -51,11 +53,19 @@ public class PlayerHealth : MonoBehaviour
         if (currentHealth > 0)
         {
             animator.SetTrigger("Hit");
+            hitSound.Play();
         }
         else
         {
             isAlive = false;
             animator.SetTrigger("Death");
+            dieSound.Play();
+            DeathScreen ds = FindObjectOfType<DeathScreen>();
+            if(ds != null)
+            {
+                ds.ShowDeathScreen();
+            }
         }
     }
+
 }
